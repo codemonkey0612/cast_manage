@@ -20,9 +20,19 @@ const DateDisplay = ({
       }
     };
 
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        setShowFullDate(false);
+      }
+    };
+
     if (showFullDate) {
       document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('keydown', handleEscapeKey);
+      };
     }
   }, [showFullDate]);
 
@@ -80,7 +90,7 @@ const DateDisplay = ({
   };
 
   return (
-    <div className={`inline-flex items-center space-x-2 ${className}`}>
+    <div className={`relative inline-flex items-center space-x-2 ${className}`} ref={containerRef}>
       <div className="flex flex-col">
         <span 
           className={`font-medium transition-colors duration-200 ${
@@ -109,7 +119,7 @@ const DateDisplay = ({
           )}
           {!isThisWeek() && isRecent() && (
             <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-yellow-100 text-yellow-700">
-              最近
+最近
             </span>
           )}
         </div>
@@ -133,7 +143,7 @@ const DateDisplay = ({
 
       {/* Full date display */}
       {showFullDate && (
-        <div className="absolute z-10 mt-2 p-3 bg-white rounded-lg shadow-lg border border-gray-200 min-w-max">
+        <div className="absolute z-50 top-full left-0 mt-2 p-3 bg-white rounded-lg shadow-lg border border-gray-200 min-w-max">
           <div className="text-sm text-gray-600 space-y-1">
             <div><strong>完全な日時:</strong> {formatDateTime(dateString)}</div>
             <div><strong>相対時間:</strong> {getRelativeTime(dateString)}</div>
