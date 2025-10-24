@@ -107,13 +107,6 @@ function App() {
       render: (value) => (
         <span className="font-mono text-sm text-gray-600">{value}</span>
       )
-    },
-    {
-      key: 'メール',
-      label: 'メール',
-      render: (value) => (
-        <span className="text-blue-600 hover:text-blue-800 cursor-pointer">{value}</span>
-      )
     }
   ];
 
