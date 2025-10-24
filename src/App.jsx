@@ -56,7 +56,7 @@ function App() {
         <DateDisplay 
           dateString={value} 
           format="withWeekday"
-          showRelative={true}
+          showRelative={false}
           className="text-sm"
         />
       )
